@@ -1,13 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap");
+:root {
+  --main--color: #eeeeee;
+  --main--sec: #2b2e4a;
+}
 body {
+  background-color: var(--main--sec);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Scheherazade New", serif;
+  color: var(--main--color);
+  font-size: x-large;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.App {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.right {
+  width: 12%;
+}
+.left {
+  width: 85%;
 }
