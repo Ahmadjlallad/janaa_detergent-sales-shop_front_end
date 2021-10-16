@@ -2,9 +2,9 @@ import { ReactElement } from "react";
 import { RootState } from "../../app/store";
 import { useAppSelector } from "../../app/hooks";
 import "./Search.css";
-import { Item } from "./../../features/items/items";
+
 import SearchForm from "./SearchForm";
-import EditItem from "./EditItem";
+import RenderItems from "./RenderItems";
 export default function Search(): ReactElement {
   const search = useAppSelector((state: RootState) => state.items);
   console.log(search);
@@ -12,9 +12,7 @@ export default function Search(): ReactElement {
   return (
     <div className="container-search">
       <SearchForm />
-      {search.items.length > 0 && (
-        <EditItem initialValues={search.items[0] as Item} />
-      )}
+      {search.items.length > 0 && <RenderItems selectedItem={search.items} />}
     </div>
   );
 }

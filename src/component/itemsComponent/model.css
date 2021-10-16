@@ -1,0 +1,25 @@
+.model-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.model-centered {
+  padding: 5px;
+  background: #eee;
+  border-radius: 5px;
+  width: 35%;
+}
+.model-container:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}

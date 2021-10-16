@@ -1,7 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap");
 :root {
-  --main--color: #eeeeee;
-  --main--sec: #2b2e4a;
+  --main--color: #55545f;
+  --main--sec: #d9dafc;
+  --btn--color: #2716e7;
+}
+button {
+  background-color: var(--btn--color);
+  color: var(--main--sec);
+  border: none;
+
+  padding: 0.4rem 1rem;
+
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 body {
   background-color: var(--main--sec);
@@ -28,6 +40,7 @@ code {
 }
 .right {
   width: 12%;
+  position: relative;
 }
 .left {
   width: 85%;

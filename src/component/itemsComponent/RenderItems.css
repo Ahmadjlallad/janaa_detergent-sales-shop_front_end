@@ -1,0 +1,16 @@
+.render-items--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.render-items--col {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.render-items--col > div {
+  width: 100%;
+  height: 5rem;
+}
