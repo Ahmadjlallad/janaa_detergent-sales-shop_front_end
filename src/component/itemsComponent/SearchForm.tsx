@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Form, Field } from "react-final-form";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../app/hooks";
-import { queryAllItems } from "./../../features/items/items";
+import { queryAllItems, setQuery } from "./../../features/items/items";
 
 import "./Search.css";
 
@@ -14,7 +14,7 @@ type FormData = {
 export default function SearchForm(): ReactElement {
   const dispatch = useAppDispatch();
   const handleSubmit = ({ search, change }: FormData) => {
-    console.log(search, change);
+    dispatch(setQuery({ value: search, type: change }));
     if (change === "all")
       dispatch(queryAllItems({ value: search, type: change }));
     else

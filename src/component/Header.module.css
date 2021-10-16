@@ -4,16 +4,16 @@ body {
   font-family: "Scheherazade New", serif;
 }
 .navbar {
-  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #e84545;
+  background-color: #8c4af2;
   /* background-color: #393e46; */
-  position: sticky;
+  position: fixed;
   border-radius: 5px;
+  width: 11%;
 }
 .links {
   text-decoration: none;

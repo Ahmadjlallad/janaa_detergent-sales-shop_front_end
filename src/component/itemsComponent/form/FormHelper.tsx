@@ -17,10 +17,28 @@ export default function FormHelper({
     wholesalePrice,
     barcodeState,
   }: IntiValues) => {
+    console.log(barcodeState ? barcode : null);
     if (id) {
       if (barcodeState)
-        dispatch(dispatcher({ name, price, barcode, wholesalePrice, id }));
-      else dispatch(dispatcher({ name, price, wholesalePrice, id }));
+        dispatch(
+          dispatcher({
+            name,
+            price,
+            barcode,
+            wholesalePrice,
+            id,
+          })
+        );
+      else
+        dispatch(
+          dispatcher({
+            name,
+            price,
+            wholesalePrice,
+            id,
+            barcode: barcodeState ? barcode : null,
+          })
+        );
     } else {
       if (barcodeState)
         dispatch(dispatcher({ name, price, barcode, wholesalePrice }));
@@ -32,7 +50,7 @@ export default function FormHelper({
     <div className={FormHelperCss.formContainer}>
       <Form
         onSubmit={handleSubmit}
-        initialValues={{ ...initialValues, barcodeState: true }}
+        initialValues={initialValues}
         validate={validate}
       >
         {({ handleSubmit, submitting, pristine, values, form }) => (
@@ -40,6 +58,7 @@ export default function FormHelper({
             onSubmit={(e) => {
               handleSubmit(e);
               form.reset();
+              form.restart();
             }}
             className={FormHelperCss.formHelper}
           >

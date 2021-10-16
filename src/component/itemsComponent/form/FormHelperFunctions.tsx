@@ -2,10 +2,10 @@ import type { AddItem, UpdateItem } from "../../../features/items/items";
 import { Field } from "react-final-form";
 
 export type IntiValues = {
-  name: string;
-  price: number;
+  name?: string;
+  price?: number;
   barcode?: string | null | undefined;
-  wholesalePrice: number;
+  wholesalePrice?: number;
   barcodeState?: boolean;
   id?: string | undefined;
 };
@@ -15,9 +15,10 @@ export type error = {
   barcode?: string;
   wholesalePrice?: string;
 };
+type e = AddItem | UpdateItem | any;
 export interface Props {
   initialValues?: IntiValues | undefined;
-  dispatcher: AddItem | UpdateItem;
+  dispatcher: e;
   id?: string;
 }
 export const validate = (values: any) => {

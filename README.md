@@ -36,3 +36,5 @@ lets start with main page.
 #### state flow: form two pages
 
 ![state flow](./readme-img/janaafrontend-Page-4.jpg)
+
+TODO: Add valuations to the forms + check if the product is already in the database.

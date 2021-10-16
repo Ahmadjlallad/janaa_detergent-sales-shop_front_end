@@ -6,7 +6,7 @@ const AddItem = () => {
     <div>
       <FormHelper
         dispatcher={addItem}
-        initialValues={undefined}
+        initialValues={{ barcodeState: true }}
         id={undefined}
       />
     </div>
