@@ -19,6 +19,7 @@ export default function RenderItems({ selectedItem }: Props): ReactElement {
         <div>اسم المنتج</div>
         <div>barcode</div>
         <div>سعر</div>
+        <div>سعر جمله</div>
         <div>تعديل</div>
         <div>حذف</div>
       </div>
@@ -32,6 +33,7 @@ export default function RenderItems({ selectedItem }: Props): ReactElement {
             <div>{name}</div>
             <div>{barcode ? barcode : "لا يوجد barcode"}</div>
             <div>{price}</div>
+            <div>{wholesalePrice}</div>
             <div>
               {" "}
               <EditItem

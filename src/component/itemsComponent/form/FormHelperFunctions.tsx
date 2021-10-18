@@ -7,7 +7,7 @@ export type IntiValues = {
   barcode?: string | null | undefined;
   wholesalePrice?: number;
   barcodeState?: boolean;
-  id?: string | undefined;
+  _id?: string | undefined;
 };
 export type error = {
   name?: string;
@@ -19,7 +19,7 @@ type e = AddItem | UpdateItem | any;
 export interface Props {
   initialValues?: IntiValues | undefined;
   dispatcher: e;
-  id?: string;
+  _id?: string;
 }
 export const validate = (values: any) => {
   const errors: error = {};

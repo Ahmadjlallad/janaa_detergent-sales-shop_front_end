@@ -7,7 +7,7 @@ export interface Item {
   barcode?: string | null | undefined;
   price: number;
   wholesalePrice: number;
-  id?: string;
+  _id?: string;
 }
 interface ItemsAxios {
   data: Item[];
@@ -43,7 +43,7 @@ export const latestQuery = (state: RootState) => state.items.latestQuery;
 export const updateItem = createAsyncThunk(
   "items/updateItem",
   async (item: Item, { getState }): Promise<Item[]> => {
-    await jannaApi.put(`/items/${item.id}`, item);
+    await jannaApi.put(`/items/${item._id}`, item);
     const { type, value } = latestQuery(getState() as RootState);
     const { data }: ItemsAxios = await jannaApi.get(
       `/items?type=${type}&value=${value}`
@@ -53,8 +53,8 @@ export const updateItem = createAsyncThunk(
 );
 export const deleteItem = createAsyncThunk(
   "items/deleteItem",
-  async (id: string, { getState }): Promise<Item[]> => {
-    await jannaApi.delete(`/items/${id}`);
+  async (_id: string, { getState }): Promise<Item[]> => {
+    await jannaApi.delete(`/items/${_id}`);
     const { type, value } = latestQuery(getState() as RootState);
     const { data }: ItemsAxios = await jannaApi.get(
       `/items?type=${type}&value=${value}`
@@ -86,8 +86,6 @@ const itemsSlice = createSlice({
         }
       )
       .addCase(queryAllItems.rejected, (state, action: PayloadAction<any>) => {
-        console.log(action);
-
         return { ...state, err: action, status: "error" };
       })
       .addCase(addItem.pending, (state) => {
@@ -107,7 +105,6 @@ const itemsSlice = createSlice({
       })
       .addCase(updateItem.rejected, (state, action: PayloadAction<any>) => {
         state.status = "error";
-        console.log(action);
       })
       .addCase(deleteItem.pending, (state) => {
         state.status = "loading";
@@ -117,7 +114,6 @@ const itemsSlice = createSlice({
       })
       .addCase(deleteItem.rejected, (state, action: PayloadAction<any>) => {
         state.status = "error";
-        console.log(action);
       });
   },
 });

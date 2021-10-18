@@ -38,3 +38,7 @@ lets start with main page.
 ![state flow](./readme-img/janaafrontend-Page-4.jpg)
 
 TODO: Add valuations to the forms + check if the product is already in the database.
+TODO: f8 - print a receipt
+TODO: f5 - delete a product from receipt
+TODO: f4 - open a receipt
+TODO: f6 - save a receipt

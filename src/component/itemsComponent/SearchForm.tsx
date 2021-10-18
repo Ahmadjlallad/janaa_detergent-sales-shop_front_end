@@ -6,12 +6,20 @@ import { useAppDispatch } from "../../app/hooks";
 import { queryAllItems, setQuery } from "./../../features/items/items";
 
 import "./Search.css";
-
+interface props {
+  mainCssClass?: string;
+  inputContainerCssClass?: string;
+  inputCssClass?: string;
+}
 type FormData = {
   search: string;
   change: string;
 };
-export default function SearchForm(): ReactElement {
+export default function SearchForm({
+  mainCssClass,
+  inputContainerCssClass,
+  inputCssClass,
+}: props): ReactElement {
   const dispatch = useAppDispatch();
   const handleSubmit = ({ search, change }: FormData) => {
     dispatch(setQuery({ value: search, type: change }));
@@ -30,8 +38,17 @@ export default function SearchForm(): ReactElement {
       <Form onSubmit={handleSubmit}>
         {({ handleSubmit, values }) => {
           return (
-            <form onSubmit={handleSubmit} className="search-form">
-              <div className="Search-form--inp--container">
+            <form
+              onSubmit={handleSubmit}
+              className={mainCssClass ? mainCssClass : `search-form`}
+            >
+              <div
+                className={
+                  inputContainerCssClass
+                    ? inputContainerCssClass
+                    : `Search-form--inp--container`
+                }
+              >
                 {values.change !== "all" ? (
                   <Field name="search" component="input" />
                 ) : null}
@@ -39,7 +56,9 @@ export default function SearchForm(): ReactElement {
                   name="change"
                   component="select"
                   defaultValue="name"
-                  className="Search-form--inp--select"
+                  className={
+                    inputCssClass ? inputCssClass : `Search-form--inp--select`
+                  }
                 >
                   <option value="barcode">barcode</option>
                   <option value="name">الاسم</option>
