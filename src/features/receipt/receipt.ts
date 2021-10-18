@@ -1,22 +1,27 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import jannaApi from "../../Api/jannaApi";
+import MyHistory from "../../MyHistory";
+
 export interface Receipt {
   name: string;
-  barcode: string;
+  barcode: string | null | undefined;
   price: number;
   quantity: number;
   wholesalePrice: number;
   _id?: string;
+  wholesalePriceTotalPrice: number;
+  totalPrice: number;
 }
 export interface ReceiptArray {
   items: Receipt[];
   date?: string;
   time?: string;
-  total: number;
-  isPaid: Boolean;
-  netProfit: number;
+  total?: number;
+  isPaid?: Boolean;
+  netProfit?: number;
   _id?: string;
   receiptNumber?: number;
+  receiptNumberForThisDay?: number;
 }
 interface InitialState {
   receipt: ReceiptArray[];
@@ -33,27 +38,43 @@ const init = {
   total: 0,
   isPaid: false,
   netProfit: 0,
+  receiptNumberForThisDay: 0,
 };
 type Query = {
   q: string;
   value: string | number | boolean;
 };
 interface AxiosData {
+  data: ReceiptArray;
+}
+interface AxiosDataAsArray {
   data: ReceiptArray[];
 }
 export const addReceiptDb = createAsyncThunk(
   "receipt/addReceipt",
   async (receipt: ReceiptArray = init) => {
     const { data }: AxiosData = await jannaApi.post("/receipt", receipt);
+    console.log(data);
+    MyHistory.push(`/receipt/${data._id}`);
     return data;
   }
 );
 export const updateReceiptDb = createAsyncThunk(
   "receipt/updateReceipt",
   async (receipt: ReceiptArray) => {
-    const { data }: AxiosData = await jannaApi.put(
-      `/receipt/${receipt._id}`,
-      receipt
+    await jannaApi.put(`/receipt/${receipt._id}`, receipt);
+    const { data }: AxiosData = await jannaApi.get(
+      `/receipt?q=isPaid&value=${false}`
+    );
+    return data;
+  }
+);
+export const deleteReceiptDb = createAsyncThunk(
+  "receipt/deleteReceipt",
+  async (_id: string) => {
+    await jannaApi.delete(`/receipt/${_id}`);
+    const { data }: AxiosData = await jannaApi.get(
+      `/receipt?q=isPaid&value=${false}`
     );
     return data;
   }
@@ -63,7 +84,7 @@ export const searchByQAndValue = createAsyncThunk(
   async (
     { q, value }: Query = { q: "isPaid", value: false }
   ): Promise<ReceiptArray[]> => {
-    const { data }: AxiosData = await jannaApi.get(
+    const { data }: AxiosDataAsArray = await jannaApi.get(
       `/receipt?q=${q}&value=${value}`
     );
     return data;
@@ -87,21 +108,56 @@ const receiptSlice = createSlice({
         state.receipt.push(action.payload);
         state.status = "loaded";
       })
+      .addCase(addReceiptDb.rejected, (state, action: PayloadAction<any>) => {
+        state.status = "failed";
+        console.log(action);
+      })
       .addCase(updateReceiptDb.pending, (state) => {
         state.status = "loading";
       })
       .addCase(
         updateReceiptDb.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.receipt.push(action.payload);
+          state.receipt = action.payload;
           state.status = "loaded";
+        }
+      )
+      .addCase(
+        updateReceiptDb.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          console.log(action);
         }
       )
       .addCase(searchByQAndValue.pending, (state) => {
         state.status = "loading";
       })
       .addCase(
+        searchByQAndValue.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          console.log(action);
+        }
+      )
+      .addCase(
         searchByQAndValue.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.receipt = action.payload;
+          state.status = "loaded";
+        }
+      )
+      .addCase(deleteReceiptDb.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        deleteReceiptDb.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          console.log(action);
+        }
+      )
+      .addCase(
+        deleteReceiptDb.fulfilled,
         (state, action: PayloadAction<any>) => {
           state.receipt = action.payload;
           state.status = "loaded";

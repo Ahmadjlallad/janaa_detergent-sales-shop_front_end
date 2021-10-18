@@ -43,7 +43,12 @@ const inputFiled = (name: string, title: string, CssClass: string) => (
       <div className={CssClass}>
         <label>{title}</label>
 
-        <input {...input} type="text" placeholder={title} />
+        <input
+          {...input}
+          type={name === "name" ? "text" : "number"}
+          step={name === "price" ? "0.01" : "1"}
+          placeholder={title}
+        />
         {meta.error && meta.touched && <span>{meta.error}</span>}
       </div>
     )}

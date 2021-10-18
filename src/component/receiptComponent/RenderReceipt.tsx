@@ -1,33 +1,92 @@
 import React from "react";
-import { ReceiptArray, Receipt } from "./../../features/receipt/receipt";
+import {
+  ReceiptArray,
+  Receipt,
+  updateReceiptDb,
+  deleteReceiptDb,
+} from "./../../features/receipt/receipt";
 import receiptRenderItems from "./receiptRenderItems.module.css";
+
+import RenderReceiptItems from "./Helpers/RenderReceiptItems";
+import { useAppDispatch } from "../../app/hooks";
+import { calculateTotalPriceReceipt } from "./Helpers/ReceiptHelper";
+
 interface Props {
   receipt: ReceiptArray[];
   _id: string;
 }
 
 const RenderReceipt = ({ receipt, _id }: Props) => {
-  const myReceipt: ReceiptArray | any = receipt.find(
+  const dispatcher = useAppDispatch();
+
+  const myReceipt: ReceiptArray[] | any = receipt.find(
     ({ _id: id }) => id === _id
   );
-
   const renderItems = myReceipt?.items.map(
-    ({ name, price, wholesalePrice, barcode, _id }: Receipt) => (
-      <div key={_id} className={receiptRenderItems.flexRowDiv}>
-        <div>{name}</div>
-        <div>{price}</div>
-        <div>{wholesalePrice}</div>
-        <div>{barcode ? barcode : "لا يوجد barcode"}</div>
-        <div>
-          <button onClick={() => {}}>عدد</button>
-        </div>
-        <div>
-          <button>Delete</button>
-        </div>
-      </div>
+    (ReceiptItems: Receipt, i: number) => (
+      <RenderReceiptItems
+        key={ReceiptItems._id}
+        receiptRenderItems={receiptRenderItems}
+        ReceiptItem={ReceiptItems}
+        ReceiptItems={myReceipt}
+        _id={_id}
+        i={i}
+      />
     )
   );
-  return <div>{renderItems}</div>;
+  return (
+    <div>
+      <div className={receiptRenderItems.flexRowDiv}>
+        <div>الاسم</div>
+        <div>سعر</div>
+        <div>سعر الجمله</div>
+        <div>باركود</div>
+        <div>الكميه</div>
+        <div>السعر الكلي</div>
+        <div>حدد الكميه</div>
+        <div></div>
+      </div>
+      <div>{renderItems}</div>
+
+      {myReceipt && myReceipt.items.length > 0 && (
+        <>
+          <div>سعر الكلي:{calculateTotalPriceReceipt(myReceipt.items)[0]}</div>
+          <button
+            onClick={() => {
+              dispatcher(
+                updateReceiptDb({
+                  ...myReceipt,
+                  isPaid: true,
+                  netProfit: calculateTotalPriceReceipt(myReceipt.items)[1],
+                  total: calculateTotalPriceReceipt(myReceipt.items)[0],
+                })
+              );
+            }}
+          >
+            تم الدفع
+          </button>
+          <button
+            onClick={() => {
+              dispatcher(deleteReceiptDb(_id));
+            }}
+          >
+            الغاء الفاتوره
+          </button>
+        </>
+      )}
+      {myReceipt && (
+        <>
+          <button
+            onClick={() => {
+              dispatcher(deleteReceiptDb(_id));
+            }}
+          >
+            الغاء الفاتوره
+          </button>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default RenderReceipt;
