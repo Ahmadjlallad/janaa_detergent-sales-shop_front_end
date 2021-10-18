@@ -1,0 +1,19 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.flexRowDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.flexRow > div {
+  flex: 1;
+  margin: 0 1rem;
+}
+.flexRowDiv > div {
+  flex: 1;
+}

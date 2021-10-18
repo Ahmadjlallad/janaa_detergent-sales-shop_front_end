@@ -20,8 +20,7 @@ const EditItem = ({ initialValues }: Props) => {
     if (ModRef.current) {
       ModRef.current.focus();
     }
-
-    const refa = ModRef.current;
+    const ModRefInuseEffect = ModRef.current;
     ModRef.current?.addEventListener("click", (e) => {
       if (e.target === e.currentTarget) {
         setState(false);
@@ -33,7 +32,7 @@ const EditItem = ({ initialValues }: Props) => {
       }
     });
     return () => {
-      refa?.removeEventListener("click", (e) => {
+      ModRefInuseEffect?.removeEventListener("click", (e) => {
         if (e.target === e.currentTarget) {
           setState(false);
         }
@@ -44,7 +43,7 @@ const EditItem = ({ initialValues }: Props) => {
         }
       });
     };
-  }, [ModRef]);
+  }, [ModRef, state]);
   return (
     <>
       <button
@@ -64,7 +63,7 @@ const EditItem = ({ initialValues }: Props) => {
                   ...initialValues,
                   barcodeState: initialValues.barcode ? true : false,
                 }}
-                id={initialValues._id}
+                _id={initialValues._id}
               />
               <button
                 onClick={() => {

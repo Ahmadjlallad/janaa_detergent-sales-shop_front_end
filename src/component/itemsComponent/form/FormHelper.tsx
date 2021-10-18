@@ -7,7 +7,7 @@ import inputFiled, { IntiValues, Props, validate } from "./FormHelperFunctions";
 export default function FormHelper({
   initialValues,
   dispatcher,
-  id,
+  _id,
 }: Props): ReactElement {
   const dispatch = useAppDispatch();
   const handleSubmit = ({
@@ -17,8 +17,7 @@ export default function FormHelper({
     wholesalePrice,
     barcodeState,
   }: IntiValues) => {
-    console.log(barcodeState ? barcode : null);
-    if (id) {
+    if (_id) {
       if (barcodeState)
         dispatch(
           dispatcher({
@@ -26,7 +25,7 @@ export default function FormHelper({
             price,
             barcode,
             wholesalePrice,
-            id,
+            _id,
           })
         );
       else
@@ -35,7 +34,7 @@ export default function FormHelper({
             name,
             price,
             wholesalePrice,
-            id,
+            _id,
             barcode: barcodeState ? barcode : null,
           })
         );
