@@ -3,17 +3,22 @@ import { Link } from "react-router-dom";
 import headerCss from "./Header.module.css";
 import { connect } from "react-redux";
 import { ReceiptArray } from "./../features/receipt/receipt";
-export interface IAppProps {
+import { RouteChildrenProps } from "react-router";
+
+export interface IAppProps extends RouteChildrenProps {
   receipts?: ReceiptArray[] | any[] | any;
+  status?: string;
 }
 
 class App extends React.Component<IAppProps> {
   public render() {
     const { receipts } = this.props;
-    console.log(receipts);
     return (
       <div className={headerCss.navbar}>
-        <Link className={headerCss.links} to="/addReceipt/null">
+        <Link
+          className={headerCss.links}
+          to={`/receipt/${receipts.length > 0 ? receipts[0]._id : null}`}
+        >
           محاسبه
         </Link>
         {receipts?.length > 0 &&
@@ -21,7 +26,13 @@ class App extends React.Component<IAppProps> {
             <Link
               key={_id}
               className={headerCss.links}
-              to={`/addReceipt/${_id}`}
+              to={`/receipt/${_id}`}
+              style={{
+                color:
+                  this.props.location.pathname.split("/")[2] === _id
+                    ? "#e84545"
+                    : "#d9dafc",
+              }}
             >
               فتوره رقم: {receiptNumber}
             </Link>
@@ -37,6 +48,9 @@ class App extends React.Component<IAppProps> {
   }
 }
 const mapStateToProps = (state: any) => {
-  return { receipts: state.receiptState.receipt };
+  return {
+    receipts: state.receiptState.receipt,
+    status: state.receiptState.status,
+  };
 };
 export default connect(mapStateToProps, {})(App);

@@ -42,3 +42,4 @@ TODO: f8 - print a receipt
 TODO: f5 - delete a product from receipt
 TODO: f4 - open a receipt
 TODO: f6 - save a receipt
+TODO: if no receipt open don't alow to add products
