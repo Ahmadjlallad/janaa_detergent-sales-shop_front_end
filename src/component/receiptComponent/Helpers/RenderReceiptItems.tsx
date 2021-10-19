@@ -69,7 +69,7 @@ const RenderReceiptItems = ({
             items: [...filteredReceiptItem],
           })
         );
-      }, 1000);
+      }, 10);
     }
 
     return () => {

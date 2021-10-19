@@ -23,31 +23,37 @@ export interface ReceiptArray {
   receiptNumber?: number;
   receiptNumberForThisDay?: number;
 }
-interface InitialState {
+export interface InitialState {
   receipt: ReceiptArray[];
   status: "idle" | "loading" | "loaded" | "failed";
+  error?: string;
 }
-const initialState: InitialState = {
+export const initialState: InitialState = {
   receipt: [],
   status: "idle",
 };
-const init = {
+const myDate = new Date();
+export const todayDate = `${myDate.getFullYear()}-${
+  myDate.getMonth() + 1
+}-${myDate.getDate()}`;
+console.log(todayDate);
+export const init = {
   items: [],
-  date: "",
-  time: "",
+  date: `${todayDate}`,
+  time: `${myDate.getHours()}:${myDate.getMinutes()}`,
   total: 0,
   isPaid: false,
   netProfit: 0,
   receiptNumberForThisDay: 0,
 };
-type Query = {
+export type Query = {
   q: string;
   value: string | number | boolean;
 };
-interface AxiosData {
+export interface AxiosData {
   data: ReceiptArray;
 }
-interface AxiosDataAsArray {
+export interface AxiosDataAsArray {
   data: ReceiptArray[];
 }
 export const addReceiptDb = createAsyncThunk(
@@ -111,6 +117,7 @@ const receiptSlice = createSlice({
       .addCase(addReceiptDb.rejected, (state, action: PayloadAction<any>) => {
         state.status = "failed";
         console.log(action);
+        state.error = action.payload.message;
       })
       .addCase(updateReceiptDb.pending, (state) => {
         state.status = "loading";
@@ -127,6 +134,7 @@ const receiptSlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.status = "failed";
           console.log(action);
+          state.error = action.payload.message;
         }
       )
       .addCase(searchByQAndValue.pending, (state) => {
@@ -137,6 +145,7 @@ const receiptSlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.status = "failed";
           console.log(action);
+          state.error = action.payload.message;
         }
       )
       .addCase(
@@ -154,6 +163,7 @@ const receiptSlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.status = "failed";
           console.log(action);
+          state.error = action.payload.message;
         }
       )
       .addCase(

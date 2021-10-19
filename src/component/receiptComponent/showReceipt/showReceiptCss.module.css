@@ -1,0 +1,35 @@
+.border {
+  border-top: 1px solid var(--main--color);
+  width: 95%;
+}
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.flexRow > div {
+  flex: 1;
+  text-align: center;
+}
+.items {
+  transform: translate(-5%, 0);
+  border-bottom: 1px solid var(--main--color);
+  width: 80%;
+}
+.items:last-of-type {
+  border-bottom: 0;
+}
+.hide {
+  transition: all 0.5s ease-in-out;
+  display: none;
+}
+.show {
+  padding: 5px;
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+.show:focus-visible {
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
