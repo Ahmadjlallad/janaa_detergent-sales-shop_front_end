@@ -4,7 +4,7 @@ import headerCss from "./Header.module.css";
 import { connect } from "react-redux";
 import { ReceiptArray } from "./../features/receipt/receipt";
 import { RouteChildrenProps } from "react-router";
-
+import Clock from "./clock/Clock";
 export interface IAppProps extends RouteChildrenProps {
   receipts?: ReceiptArray[] | any[] | any;
   status?: string;
@@ -15,6 +15,9 @@ class App extends React.Component<IAppProps> {
     const { receipts } = this.props;
     return (
       <div className={headerCss.navbar}>
+        <div style={{ color: "#eeeeee" }}>
+          <Clock />
+        </div>
         <Link
           className={headerCss.links}
           to={`/receipt/${receipts.length > 0 ? receipts[0]._id : null}`}
@@ -42,6 +45,9 @@ class App extends React.Component<IAppProps> {
         </Link>
         <Link className={headerCss.links} to="/AddItem">
           اظف منتج
+        </Link>
+        <Link className={headerCss.links} to="/receipts">
+          ملخص الفواتير
         </Link>
       </div>
     );

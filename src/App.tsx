@@ -4,6 +4,7 @@ import Search from "./component/itemsComponent/Search";
 import Headers from "./component/Header";
 import NewReceipt from "./component/receiptComponent/NewReceipt";
 import MyHistory from "./MyHistory";
+import ShowReceipt from "./component/receiptComponent/showReceipt/Receipt";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" exact component={Search} />
             <Route path="/addItem" component={AddItem} />
             <Route path="/receipt/:_id" component={NewReceipt} />
+            <Route path="/receipts" component={ShowReceipt} />
           </Switch>
         </div>
       </Router>

@@ -65,13 +65,6 @@ const RenderReceipt = ({ receipt, _id }: Props) => {
           >
             تم الدفع
           </button>
-          <button
-            onClick={() => {
-              dispatcher(deleteReceiptDb(_id));
-            }}
-          >
-            الغاء الفاتوره
-          </button>
         </>
       )}
       {myReceipt && (
