@@ -16,6 +16,7 @@ interface Obj {
   total?: number;
   netProfit?: number;
 }
+
 function extractNumberFromObj<Type extends Obj>(
   arr: Type[],
   extractFrom: "total" | "netProfit"
@@ -25,6 +26,7 @@ function extractNumberFromObj<Type extends Obj>(
     .map((obj) => obj[extractFrom] ?? 0)
     .reduce((a, b) => (a ?? 0) + (b ?? 0), 0);
 }
+
 const Receipt = () => {
   const dispatcher = useAppDispatch();
   const receipt = useAppSelector((state) => state.showReceipt);

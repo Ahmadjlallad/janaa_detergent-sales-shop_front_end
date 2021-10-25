@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { Form, Field } from "react-final-form";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../app/hooks";
@@ -15,7 +15,7 @@ type FormData = {
   search: string;
   change: string;
 };
-export default function SearchForm({
+function SearchForm({
   mainCssClass,
   inputContainerCssClass,
   inputCssClass,
@@ -85,3 +85,4 @@ export default function SearchForm({
     </>
   );
 }
+export default React.memo(SearchForm);

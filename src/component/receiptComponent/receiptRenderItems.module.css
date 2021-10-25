@@ -1,19 +1,58 @@
+.newReceiptContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+}
+.newReceiptContainer > * {
+  margin: 0.5rem;
+}
 .flexRow {
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border-radius: 5px;
+  background-color: var(--header--bg);
+  box-shadow: var(--box--shadow);
+  padding: 10px;
 }
 .flexRowDiv {
   display: flex;
+
   flex-direction: row;
-  align-items: baseline;
   justify-content: space-between;
+  width: 100%;
+  font-size: large;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
 .flexRow > div {
   flex: 1;
   margin: 0 1rem;
+  width: 80%;
 }
 .flexRowDiv > div {
   flex: 1;
+  text-align: start;
+  margin: 10px 0rem;
+  max-width: 23%;
+}
+.flexRowButtons {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.receiptItemsComponent {
+  width: 80%;
+  background-color: var(--header--bg);
+  box-shadow: var(--box--shadow);
+  padding: 10px;
+  border-radius: 5px;
+}
+.btnAlignSelf {
+  align-self: flex-start;
 }

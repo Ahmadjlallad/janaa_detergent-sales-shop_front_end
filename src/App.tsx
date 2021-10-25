@@ -16,8 +16,8 @@ function App() {
           <Switch>
             <Route path="/" exact component={Search} />
             <Route path="/addItem" component={AddItem} />
-            <Route path="/receipt/:_id" component={NewReceipt} />
             <Route path="/receipts" component={ShowReceipt} />
+            <Route path="/receipt/:_id" component={NewReceipt} />
           </Switch>
         </div>
       </Router>

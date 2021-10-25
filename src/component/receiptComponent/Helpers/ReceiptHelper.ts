@@ -13,8 +13,9 @@ export const detectChanges = (
   if (typeOfChange === "new") {
     if (itemBarcode) return itemBarcode === receiptBarcode;
     else return ItemName === receiptItemName;
-  }
+  } else return {};
 };
+export type DetectChanges = typeof detectChanges;
 export const calculateTotalPrice = (itemPrice: number, quantity: number) => {
   return itemPrice * quantity;
 };

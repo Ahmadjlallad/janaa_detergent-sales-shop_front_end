@@ -10,6 +10,7 @@ import receiptRenderItems from "./receiptRenderItems.module.css";
 import RenderReceiptItems from "./Helpers/RenderReceiptItems";
 import { useAppDispatch } from "../../app/hooks";
 import { calculateTotalPriceReceipt } from "./Helpers/ReceiptHelper";
+import { useCallback } from "react";
 
 interface Props {
   receipt: ReceiptArray[];
@@ -22,20 +23,24 @@ const RenderReceipt = ({ receipt, _id }: Props) => {
   const myReceipt: ReceiptArray[] | any = receipt.find(
     ({ _id: id }) => id === _id
   );
-  const renderItems = myReceipt?.items.map(
-    (ReceiptItems: Receipt, i: number) => (
-      <RenderReceiptItems
-        key={ReceiptItems._id}
-        receiptRenderItems={receiptRenderItems}
-        ReceiptItem={ReceiptItems}
-        ReceiptItems={myReceipt}
-        _id={_id}
-        i={i}
-      />
-    )
+
+  const renderItems = useCallback(
+    () =>
+      myReceipt?.items.map((ReceiptItems: Receipt, i: number) => (
+        <RenderReceiptItems
+          key={ReceiptItems._id}
+          receiptRenderItems={receiptRenderItems}
+          ReceiptItem={ReceiptItems}
+          ReceiptItems={myReceipt}
+          _id={_id}
+          i={i}
+        />
+      )),
+    [_id, myReceipt]
   );
+
   return (
-    <div>
+    <div className={receiptRenderItems.receiptItemsComponent}>
       <div className={receiptRenderItems.flexRowDiv}>
         <div>الاسم</div>
         <div>سعر</div>
@@ -46,7 +51,7 @@ const RenderReceipt = ({ receipt, _id }: Props) => {
         <div>حدد الكميه</div>
         <div></div>
       </div>
-      <div>{renderItems}</div>
+      <div>{renderItems()}</div>
 
       {myReceipt && myReceipt.items.length > 0 && (
         <>
@@ -82,4 +87,4 @@ const RenderReceipt = ({ receipt, _id }: Props) => {
   );
 };
 
-export default RenderReceipt;
+export default React.memo(RenderReceipt);

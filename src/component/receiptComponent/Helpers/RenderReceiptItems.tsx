@@ -31,7 +31,9 @@ const RenderReceiptItems = ({
   _id,
   i,
 }: Props) => {
-  const [changedQuantity, setChangedQuantity] = React.useState(quantity);
+  const [changedQuantity, setChangedQuantity] = React.useState<number>(
+    quantity || 1
+  );
   const dispatcher = useAppDispatch();
 
   const selectorReceipt = useAppSelector((state) =>
@@ -69,7 +71,7 @@ const RenderReceiptItems = ({
             items: [...filteredReceiptItem],
           })
         );
-      }, 10);
+      }, 500);
     }
 
     return () => {
@@ -137,4 +139,4 @@ const RenderReceiptItems = ({
   );
 };
 
-export default RenderReceiptItems;
+export default React.memo(RenderReceiptItems);
