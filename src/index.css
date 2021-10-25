@@ -1,14 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap");
+#root {
+  font-size: 1.5rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 :root {
   --main--color: #55545f;
-  --main--sec: #d9dafc;
-  --btn--color: #2716e7;
+  /* --main--sec: #d9dafc; */
+  --main--sec: #bbc3ce;
+  --btn--color: #2012fe;
+  /* --header--bg: #8c4af2; */
+  --header--bg: #e5e7ed;
+  --header--color: #2012fe;
+  --header--selected-link: #55545f;
+  --box--shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 button {
   background-color: var(--btn--color);
   color: var(--main--sec);
   border: none;
-
+  box-shadow: var(--box--shadow);
   padding: 0.4rem 1rem;
 
   border-radius: 5px;
@@ -35,8 +48,9 @@ code {
 .App {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .right {
   width: 12%;
@@ -44,4 +58,9 @@ code {
 }
 .left {
   width: 85%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
 }

@@ -1,0 +1,71 @@
+/*
+ onSubmit={(e) => {
+            e.preventDefault();
+            let didNotChangedQuantity: Receipt[] = receipt?.items?.filter(
+              (receipt: Receipt) =>
+                detectChanges("old", { barcode, name } as Item, receipt)
+            );
+
+            let changedQuantity: Receipt = receipt?.items?.find(
+              (receipt: Receipt) =>
+                detectChanges("new", { barcode, name } as Item, receipt)
+            );
+            // console.log("oldItems", didNotChangedQuantity);
+            // console.log("changedQuantity", changedQuantity);
+            const myTarget: any = e.target;
+            if (didNotChangedQuantity === undefined) didNotChangedQuantity = [];
+            if (changedQuantity) {
+              changedQuantity = { ...changedQuantity };
+
+              changedQuantity.quantity =
+                changedQuantity.quantity + +myTarget.quantity.value;
+              changedQuantity.totalPrice =
+                changedQuantity.wholesalePriceTotalPrice = calculateTotalPrice(
+                  wholesalePrice,
+                  changedQuantity.quantity
+                );
+              changedQuantity.totalPrice = calculateTotalPrice(
+                price,
+                changedQuantity.quantity
+              );
+              const newItem: Receipt[] = [
+                ...didNotChangedQuantity,
+                { ...changedQuantity },
+              ];
+              dispatcher(updateReceiptDb({ ...receipt, _id, items: newItem }));
+            } else {
+              didNotChangedQuantity.push({
+                name,
+                barcode,
+                price,
+                quantity: +myTarget.quantity.value,
+                wholesalePrice,
+                totalPrice: calculateTotalPrice(
+                  price,
+                  +myTarget.quantity.value
+                ),
+                wholesalePriceTotalPrice: calculateTotalPrice(
+                  wholesalePrice,
+                  +myTarget.quantity.value
+                ),
+              });
+              dispatcher(
+                updateReceiptDb({
+                  ...receipt,
+                  items: didNotChangedQuantity,
+                  _id,
+                })
+              );
+            }
+            // console.log(+myTarget.quantity.value);
+          }}
+ */
+
+/**
+           *   useCallback(() => {
+    if (onItemChange !== null) {
+      const bigTest = receipt.find(({ _id: id }) => id === onItemChange.r5_id);
+      test(bigTest, detectChanges, onItemChange, dispatch, onItemChange.r5_id);
+    }
+  }, [dispatch, onItemChange, receipt]);
+           */

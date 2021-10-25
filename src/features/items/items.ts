@@ -12,7 +12,7 @@ export interface Item {
 interface ItemsAxios {
   data: Item[];
 }
-type ItemsState = {
+export type ItemsState = {
   items: Item[];
   status: "loading" | "loaded" | "error" | "idle";
   latestQuery: { type: string; value: string };
@@ -100,7 +100,7 @@ const itemsSlice = createSlice({
       .addCase(updateItem.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateItem.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(updateItem.fulfilled, (state, action: PayloadAction<Item[]>) => {
         return { ...state, status: "loaded", items: action.payload };
       })
       .addCase(updateItem.rejected, (state, action: PayloadAction<any>) => {
@@ -109,7 +109,7 @@ const itemsSlice = createSlice({
       .addCase(deleteItem.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(deleteItem.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(deleteItem.fulfilled, (state, action: PayloadAction<Item[]>) => {
         return { ...state, status: "loaded", items: action.payload };
       })
       .addCase(deleteItem.rejected, (state, action: PayloadAction<any>) => {
