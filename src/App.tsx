@@ -5,6 +5,7 @@ import Headers from "./component/Header";
 import NewReceipt from "./component/receiptComponent/NewReceipt";
 import MyHistory from "./MyHistory";
 import ShowReceipt from "./component/receiptComponent/showReceipt/Receipt";
+import Test from "./Test";
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
           </Switch>
         </div>
       </Router>
+      <Test />
     </div>
   );
 }

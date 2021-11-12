@@ -6,6 +6,16 @@
   flex-direction: row;
   align-items: center;
 }
+video {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 :root {
   --main--color: #55545f;
   /* --main--sec: #d9dafc; */
